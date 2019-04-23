@@ -17,9 +17,9 @@ public class TimeEntryController {
     }
 
     @PostMapping(value = "")
-    public ResponseEntity create(TimeEntry timeEntryToCreate) {
+    public ResponseEntity create(@RequestBody TimeEntry timeEntryToCreate) {
         TimeEntry entry = timeEntryRepository.create(timeEntryToCreate);
-        return ResponseEntity.created(URI.create("/time-entries/" + Long.toString(entry.getId()))).build();
+        return ResponseEntity.created(URI.create("/time-entries/" + Long.toString(entry.getId()))).body(entry);
     }
 
     @GetMapping(value = "/{timeEntryId}")
@@ -37,12 +37,12 @@ public class TimeEntryController {
     }
 
     @PutMapping(value = "/{timeEntryId}")
-    public ResponseEntity update(@PathVariable long timeEntryId, TimeEntry timeEntry) {
+    public ResponseEntity update(@PathVariable long timeEntryId, @RequestBody TimeEntry timeEntry) {
         TimeEntry updateTimeEntry = timeEntryRepository.update(timeEntryId, timeEntry);
         if (updateTimeEntry == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.ok(updateTimeEntry);
 
     }
 

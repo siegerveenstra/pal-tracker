@@ -110,6 +110,7 @@ public class JdbcTimeEntryRepositoryTest {
 
     @Test
     public void updateReturnsTheUpdatedRecord() throws Exception {
+
         jdbcTemplate.execute(
             "INSERT INTO time_entries (id, project_id, user_id, date, hours) " +
                 "VALUES (1000, 123, 321, '2017-01-09', 8)");
